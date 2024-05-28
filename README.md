@@ -72,14 +72,31 @@ Google Kubernetes Engine (GKE) provides a managed environment for deploying, man
 1. Navigate to the [Google Kubernetes Engine](https://console.cloud.google.com/kubernetes) in the Google Cloud Console.
 2. Click on "Enable" to enable the GKE API for your project.
 
-### 2. Create an Autopilot Cluster
+   
+### 2. Push Docker Image to Artifact Registry
+First, an Artifact Registry repository was created to store the Docker image. Follow these steps to push your Docker image to Artifact Registry:
+
+    1-Authenticate with Google Cloud: Ensure you are logged in to your Google Cloud account.
+    --gcloud auth login
+
+    2-Set Your Project: Configure your project settings.
+    --gcloud config set project PROJECT_ID
+
+    3-Configure Docker to use the gcloud command-line tool to authenticate requests to Artifact Registry.
+    --gcloud auth configure-docker us-central1-docker.pkg.dev
+    
+    4-Build and Tag Your Docker Image: Build the Docker image and tag it with the appropriate name.
+    --docker build -t xgboost_adasyn_poweruser_image:v1 .
+    --docker tag xgboost_adasyn_poweruser_image:v1 us-central1-docker.pkg.dev/psychic-root-424207-s9/fast-api/xgboost_adayn_poweruser_image:cloudingv1
+
+### 3. Create an Autopilot Cluster
 
 1. In the Google Cloud Console, go to the Kubernetes Engine section.
 2. Click on "Create" and select "Autopilot" mode.
 3. Configure the cluster settings such as the name, location, and other options as needed.
 4. Click on "Create" to provision the Autopilot cluster. Google will manage the nodes and scaling for you.
 
-### 3. Deploy the Docker Image to the Cluster
+### 4. Deploy the Docker Image to the Cluster
 
 1. **Upload the Docker Image to Artifact Registry**:
     - Create an Artifact Registry repository if you don't already have one.
@@ -99,14 +116,14 @@ Google Kubernetes Engine (GKE) provides a managed environment for deploying, man
     - Configure the deployment settings such as the number of replicas, resources, and other options as needed.
     - Click on "Deploy" to create the deployment in your Autopilot cluster.
 
-### 4. Expose the Deployment
+### 5. Expose the Deployment
 
 1. Navigate to the "Services & Ingress" section in the Kubernetes Engine.
 2. Click on "Expose" for your deployment.
 3. Configure the service settings, such as the port and type (e.g., External load balancer for public access).
 4. Click on "Expose" to create the service. The service will provide an endpoint for accessing your application.
 
-### 5. Access the API
+### 6. Access the API
 
 1. In the "Services & Ingress" section, find the external IP address for your service.
 2. Open a browser and navigate to the external IP address followed by the appropriate path (e.g., `http://EXTERNAL_IP/docs`) to access the FastAPI interface.
@@ -114,5 +131,5 @@ Google Kubernetes Engine (GKE) provides a managed environment for deploying, man
 This setup allows you to deploy and manage your containerized application on Google Kubernetes Engine, leveraging the benefits of automatic scaling and managed infrastructure provided by Autopilot.
 
 ## deployment.png : deploy image 
-## (app_fastapi.png) : fastApi ınterface
-## cluster.png : kebernets autopilot cluster
+## (app_fastapi.png) : fastApi ınterface reached from k8s
+## cluster.png : kubernets autopilot cluster
