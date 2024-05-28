@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: xgboost-pod
+spec:
+  containers:
+    - name: xgboost-container
+      image: xgboost_adayn_poweruser_image:v1
+      ports:
+        - containerPort: 8000
