@@ -8,3 +8,6 @@ spec:
       image: xgboost_adayn_poweruser_image:v1
       ports:
         - containerPort: 8000
+
+
+### kubectl apply -f pod.yaml        
